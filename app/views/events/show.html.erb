@@ -1,0 +1,5 @@
+<% if current_user.email == @host %>
+	<%= render 'own_event' %>
+<% else %>
+	<%= render 'other_event' %>
+<% end %>

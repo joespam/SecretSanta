@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title> <%= @title %> </title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.10/css/jquery.dataTables.css">
+	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.js"></script>
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
+	<%= csrf_meta_tags %>
+</head>
+
+<body>
+
+	<%if current_user %>
+		<%= link_to 'logout', destroy_user_session_path, method: 'delete' %>
+	<% else %>
+		<%= link_to 'login', new_user_session_path %>
+	<% end %>
+
+	<% if flash[:notice] %>
+		<div class="flash"> 
+			<%= flash[:notice]%> 
+		</div>
+	<% elsif flash[:alert]  %>
+		<div class="flash"> 
+			<%= flash[:alert] if flash[:alert]%>
+		</div>
+	<% else %>
+	<% end %>
+	<%= yield %>
+</body>
+</html>
