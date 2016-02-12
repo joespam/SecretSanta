@@ -15,7 +15,6 @@
 //= require_tree .
 //= require fancybox
 //= require dataTables/jquery.dataTables
-//= require snowfall.jquery.min
 
 $(document).ready(function() {
 	$("a.fancybox").fancybox();
