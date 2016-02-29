@@ -78,9 +78,17 @@ class EventsController < ApplicationController
  end
 
  def destroy
- end
+  @event = Event.find(params[:id])
+  if @event.destroy
+    flash[:notice] = "The event was deleted successfully."
+    redirect_to events_path
+  else
+    flash[:alert] = "There was a problem deleting the event."
+    redirect_to @event
+  end
+end
 
- def add_existing_users
+def add_existing_users
   flash[:notice] = "Users have been added to the event successfully."
 
   event = Event.find params[:id]
@@ -105,6 +113,7 @@ class EventsController < ApplicationController
       @user = User.create email: email, password: "12345678"
       if @user
         @user.events << @event
+        EventUser.last.update participation: true
         flash[:notice] += "Users #{email} created successfully."
         #UserMailer.welcome_email_alt(@event, @user).deliver_later
       else
@@ -114,9 +123,8 @@ class EventsController < ApplicationController
    redirect_to event_path @event
  end
 
-
- private
- def event_params
+private
+def event_params
   params.require(:event).permit(:name, :date, :location, :deadline, :max_price, :min_price)
 end
 
